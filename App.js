@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import './App.css';
+import { PDFDocument } from 'pdf-lib';
+import './App.css';  
+import React, { useState } from 'react';
+
 
 function App() {
   const [file, setFile] = useState(null);
@@ -8,35 +11,39 @@ function App() {
     setFile(event.target.files[0]);
   };
 
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append('file', file);
+  const compressPDF = async () => {
+    if (!file) {
+      console.error('Please select a file');
+      return;
+    }
 
     try {
-      const response = await fetch('http://localhost:3000/compress', {
-        method: 'POST',
-        body: formData,
-      });
+      const pdfBytes = await file.arrayBuffer();
+      const pdfDoc = await PDFDocument.load(pdfBytes);
 
-      if (response.ok) {
-        const compressedFile = await response.blob();
-        // Handle the compressed file (e.g., download or display)
-        console.log('File compressed successfully!');
-      } else {
-        console.error('Failed to compress file.');
-      }
+      // Perform compression operations here
+
+      const compressedPdfBytes = await pdfDoc.save();
+      const compressedPdfBlob = new Blob([compressedPdfBytes], { type: 'application/pdf' });
+      const downloadLink = document.createElement('a');
+
+      downloadLink.href = URL.createObjectURL(compressedPdfBlob);
+      downloadLink.download = 'compressed.pdf';
+      downloadLink.click();
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error compressing PDF:', error);
     }
   };
 
   return (
-    <div className="App">
+    <div>
       <h1>PDF Compressor</h1>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Compress</button>
+      <button onClick={compressPDF}>Compress PDF</button>
     </div>
   );
 }
+
+export default App;
 
 export default App;
