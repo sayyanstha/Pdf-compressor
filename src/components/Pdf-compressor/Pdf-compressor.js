@@ -1,4 +1,4 @@
-mport './PdfCompressor.css';
+import './PdfCompressor.css';
 
 function PdfCompressor(){
     let url = "Your-Link-Here";
