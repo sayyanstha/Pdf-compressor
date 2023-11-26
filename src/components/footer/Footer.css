@@ -1,7 +1,6 @@
-#footer{
-    text-align: center;
-    /* background-color: chartreuse; */
-    height: 15vh;
-    width: 100%;
-    margin: 0;
+.app-footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
 }
