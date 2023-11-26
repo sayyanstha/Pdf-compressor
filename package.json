@@ -1,6 +1,7 @@
 {
   "name": "pdf-compressor",
   "version": "0.1.0",
+  "lockfileVersion": 2",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
