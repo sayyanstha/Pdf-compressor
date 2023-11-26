@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { PDFDocument } from 'pdf-lib';
+import Header from './Header';
+import Footer from './Footer';
 import './App.css';  
-import React, { useState } from 'react';
-
 
 function App() {
   const [file, setFile] = useState(null);
